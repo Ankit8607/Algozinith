@@ -75,36 +75,35 @@ struct ListNode {
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
-ListNode* rotateList(ListNode* head, int k) {
-    ListNode *it=head;
-	int sz=0;
-	while(it){
-		sz++;
-		it=it->next;
-	}
-	if(sz<=1) return head;
-	k%=sz;
-	if(k==0) return head;
-	// cout<<"k: "<<k<<endl;
-	ListNode *tmp;
-	it=head;
-	for(int i=0; i<sz-k-1; i++){
-		it=it->next;	
-	}
-	tmp=it;
-	it=it->next;
-	// cout<<"it->val= "<<it->val<<endl;
-	tmp->next=NULL;
-	ListNode *ans=it;
-	while(it){
-		if(it->next==NULL){
-			it->next=head;
-			break;
-		}
-		it=it->next;
-	}
-	return ans;
+ListNode* rotateList(ListNode* head, int K) {
+   if(!head || head->next==NULL) return head;
+    if(!K) return head;
+
+    int n = 0;
+    ListNode *cur = head;
+    ListNode *last = head;
+
+    while(cur) {
+        n++;
+        last = cur;
+        cur = cur->next;
+    }
+
+    K %= n;
+
+    cur = head;
+
+    for(int i = 0; i < n - K - 1; i++)
+        cur = cur->next;
+
+    last->next = head;
+
+    ListNode *temp = cur->next;
+    cur->next = NULL;
+
+    return temp;
 }
+
 
 ListNode* GetList(vector<int> &num) {
     ListNode* head = nullptr;
