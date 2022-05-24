@@ -50,6 +50,8 @@ Node 6 is a common intersection of all linked lists.
 */
 
 
+// My approach
+
 ListNode * intersection(int i, int j,vector<ListNode *>&lists) {
     ListNode* it1=lists[i],*it2=lists[j];
     while(it1 and it2){
@@ -92,4 +94,38 @@ ListNode* getKIntersectionNode(vector<ListNode*>& lists) {
         lists[i]=ans;
     }
     return ans;
+}
+
+
+
+// Smart approach
+
+ListNode *getTwoIntersectionNode(ListNode *headA, ListNode *headB) {
+    ListNode* l1 = headA, *l2 = headB;
+    while(l1 != l2) {
+        l1 = (l1 == NULL) ? headB : l1->next;
+        l2 = (l2 == NULL) ? headA : l2->next;
+    }
+    return l1;
+}
+
+ListNode* mergeLists(vector<ListNode*>& lists, int l, int r) {
+    if (l == r) {
+        return lists[l];
+    }
+
+    int mid = (l + r) / 2;
+
+    ListNode* head1 = mergeLists(lists, l, mid);
+    ListNode* head2 = mergeLists(lists, mid + 1, r);
+
+    return getTwoIntersectionNode(head1, head2);
+}
+
+ListNode* getKIntersectionNode(vector<ListNode*>& lists) {
+    if(lists.empty()) {
+        return NULL;
+    }
+
+    return mergeLists(lists, 0, (int)lists.size() - 1);
 }
