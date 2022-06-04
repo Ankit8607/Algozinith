@@ -52,14 +52,15 @@ bool isValidSquare(vector<vector<long long>> &v)
 
     if(l1==0 || l2==0 || l3==0) return 0;
 
-    if(l1==l2 and 2*l2==l3 and dis(v,1,2)==2*dis(v,1,3)) return 1;
+    if(l1==l2 and 2*l2==l3 and dis(v,1,2)==2*dis(v,1,3) and dis(v,1,2)==2*dis(v,2,3)) return 1;
 
-    if(l2==l3 and 2*l3==l1 and dis(v,2,3)==2*dis(v,2,0)) return 1;
+    if(l2==l3 and 2*l3==l1 and dis(v,2,3)==2*dis(v,2,0) and dis(v,2,3)==2*dis(v,3,0)) return 1;
 
-    if(l3==l1 and 2*l1==l2 and dis(v,3,0)==2*dis(v,3,1)) return 1;
+    if(l3==l1 and 2*l1==l2 and dis(v,3,0)==2*dis(v,3,1) and dis(v,3,0)==2*dis(v,0,1)) return 1;
 
     return 0;
 }
+
 int main()
 {
     ios_base::sync_with_stdio(false);
